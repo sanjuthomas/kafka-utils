@@ -1,9 +1,14 @@
 package org.sanju.kafka.utils.broker;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.kafka.common.TopicPartition;
 import org.sanju.kafka.utils.MetricsCollector;
+
+import kafka.admin.AdminClient;
+import scala.collection.JavaConversions;
 
 /**
  * 
@@ -11,13 +16,40 @@ import org.sanju.kafka.utils.MetricsCollector;
  *
  */
 public class KafkaMetricsCollector implements MetricsCollector{
-
-	public List<String> consumerGroups(String broker) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	private static AdminClient createAdminClient(final String broker) {
+		
+		final Properties config = new Properties();
+		config.put("bootstrap.servers", broker);
+		final AdminClient adminClient = AdminClient.create(config);
+		return adminClient;
 	}
 
-	public List<String> topics(String broker) {
+	public List<String> consumerGroups(final String broker) {
+
+		final List<String> consumerGroups = new ArrayList<>();
+		JavaConversions.asJavaList(createAdminClient(broker).listAllConsumerGroupsFlattened())
+				.forEach(gv -> consumerGroups.add(gv.groupId()));
+		return consumerGroups;
+	}
+
+	public List<String> topics(final String broker) {
+
+		final List<String> topics = new ArrayList<>();
+		this.consumerGroups(broker).forEach(cg -> {
+			JavaConversions.asJavaList(createAdminClient(broker).describeConsumerGroup(cg)).forEach(cs -> {
+				JavaConversions.asJavaList(cs.assignment()).forEach(a -> {
+					if (!topics.contains(a.topic())) {
+						topics.add(a.topic());
+					}
+				});
+			});
+		});
+
+		return topics;
+	}
+	
+	public List<String> topics(final String broker, final String consumerGroup) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -32,10 +64,7 @@ public class KafkaMetricsCollector implements MetricsCollector{
 		return null;
 	}
 
-	public List<String> topics(String broker, String consumerGroup) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	public List<Integer> partitions(String broker, String topic) {
 		// TODO Auto-generated method stub
