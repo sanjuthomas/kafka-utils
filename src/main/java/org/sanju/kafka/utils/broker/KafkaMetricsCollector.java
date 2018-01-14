@@ -77,6 +77,7 @@ public class KafkaMetricsCollector implements MetricsCollector{
 
 	public List<Integer> partitions(String broker, String topic) {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

@@ -7,11 +7,11 @@ import org.junit.Before;
  * @author Sanju Thomas
  *
  */
-public class TestKafkaMetricsCollector extends AbstractTest{
-	
+public class AbstractTest {
+
 	@Before
 	public void setup() {
-		super.setup();
+		
+		
 	}
-
 }
