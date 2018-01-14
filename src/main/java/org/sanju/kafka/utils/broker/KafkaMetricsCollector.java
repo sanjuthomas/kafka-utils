@@ -56,16 +56,24 @@ public class KafkaMetricsCollector implements MetricsCollector{
 	}
 
 	public List<TopicPartition> topicPartition(String broker) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		final List<TopicPartition> topicPartitions = new ArrayList<>();
+		this.consumerGroups(broker).forEach(cg -> {
+			JavaConversions.asJavaList(createAdminClient(broker).describeConsumerGroup(cg)).forEach(dcg -> {
+				topicPartitions.addAll(JavaConversions.asJavaList(dcg.assignment()));
+			});
+		});
+		return topicPartitions;
 	}
 
 	public List<TopicPartition> topicPartition(String broker, String consumerGroup) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		final List<TopicPartition> topicPartitions = new ArrayList<>();
+		JavaConversions.asJavaList(createAdminClient(broker).describeConsumerGroup(consumerGroup)).forEach(dcg -> {
+			topicPartitions.addAll(JavaConversions.asJavaList(dcg.assignment()));
+		});
+		return topicPartitions;
 	}
-
-
 
 	public List<Integer> partitions(String broker, String topic) {
 		// TODO Auto-generated method stub
