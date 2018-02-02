@@ -37,11 +37,6 @@ public class ZookeeperMetricsCollector implements MetricsCollector{
 		return null;
 	}
 
-	public List<Integer> partitions(String broker, String topic) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public long currentOffset(String broker, String topic) {
 		// TODO Auto-generated method stub
 		return 0;

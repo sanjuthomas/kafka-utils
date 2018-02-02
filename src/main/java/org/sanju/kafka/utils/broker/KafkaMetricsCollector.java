@@ -45,7 +45,7 @@ public class KafkaMetricsCollector implements MetricsCollector{
 	public List<String> topics(final String broker, final String consumerGroup) {
 		
 		final List<String> topics = new ArrayList<>();
-		JavaConversions.asJavaList(createAdminClient(broker).describeConsumerGroup(consumerGroup)).forEach(cs -> {
+		JavaConversions.asJavaList(createAdminClient(broker).describeConsumerGroup(consumerGroup).consumers().get()).forEach(cs -> {
 			JavaConversions.asJavaList(cs.assignment()).forEach(a -> {
 				if (!topics.contains(a.topic())) {
 					topics.add(a.topic());
@@ -59,7 +59,7 @@ public class KafkaMetricsCollector implements MetricsCollector{
 		
 		final List<TopicPartition> topicPartitions = new ArrayList<>();
 		this.consumerGroups(broker).forEach(cg -> {
-			JavaConversions.asJavaList(createAdminClient(broker).describeConsumerGroup(cg)).forEach(dcg -> {
+			JavaConversions.asJavaList(createAdminClient(broker).describeConsumerGroup(cg).consumers().get()).forEach(dcg -> {
 				topicPartitions.addAll(JavaConversions.asJavaList(dcg.assignment()));
 			});
 		});
@@ -69,16 +69,10 @@ public class KafkaMetricsCollector implements MetricsCollector{
 	public List<TopicPartition> topicPartition(String broker, String consumerGroup) {
 		
 		final List<TopicPartition> topicPartitions = new ArrayList<>();
-		JavaConversions.asJavaList(createAdminClient(broker).describeConsumerGroup(consumerGroup)).forEach(dcg -> {
+		JavaConversions.asJavaList(createAdminClient(broker).describeConsumerGroup(consumerGroup).consumers().get()).forEach(dcg -> {
 			topicPartitions.addAll(JavaConversions.asJavaList(dcg.assignment()));
 		});
 		return topicPartitions;
-	}
-
-	public List<Integer> partitions(String broker, String topic) {
-		// TODO Auto-generated method stub
-		
-		return null;
 	}
 
 	public long currentOffset(String broker, String topic) {

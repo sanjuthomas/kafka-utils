@@ -59,16 +59,6 @@ public interface MetricsCollector {
 	List<String> topics(String broker, String consumerGroup);
 	
 	
-	
-	/**
-	 * Collect all the partitions for the given topic from the broker.
-	 * 
-	 * @param topic
-	 * @return
-	 */
-	List<Integer> partitions(String broker, String topic); 
-	
-	
 	/**
 	 * Collect the current offset of the given topic from the broker.
 	 * 
