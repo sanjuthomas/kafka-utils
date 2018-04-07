@@ -12,54 +12,82 @@ import org.sanju.kafka.utils.MetricsCollector;
  */
 public class ZookeeperMetricsCollector implements MetricsCollector{
 
-	public List<String> consumerGroups(String broker) {
+	@Override
+	public List<String> groups(final String broker) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public List<String> topics(String broker) {
+	@Override
+	public List<String> topics(final String broker) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public List<TopicPartition> topicPartition(String broker) {
+	@Override
+	public List<TopicPartition> topicPartition(final String broker) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public List<TopicPartition> topicPartition(String broker, String consumerGroup) {
+	@Override
+	public List<TopicPartition> topicPartition(final String broker, final String group) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public List<String> topics(String broker, String consumerGroup) {
+	@Override
+	public List<String> topics(final String broker, final String group) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public long currentOffset(String broker, String topic) {
+	@Override
+	public long offset(final String broker, final String group, final String topic, final int offset) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	public long endOffset(String broker, String topic) {
+	@Override
+	public long logSize(final String broker, final String topic) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	public String owner(String broker, String topic, int partition) {
+	@Override
+	public String owner(final String broker, final String group, final String topic, final int partition) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public long lag(String broker, String topic) {
+	@Override
+	public long lag(final String broker, final String topic) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	public long lag(String broker, String topic, int partition) {
+	@Override
+	public long lag(final String broker, final String topic, final int partition) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	@Override
+	public long lag(final String broker, final String group, final String topic, final int partition) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public long lag(final String broker, final String group, final String topic) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String leader(final String broker, final String topic, final String partition) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

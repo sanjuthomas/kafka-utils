@@ -18,7 +18,7 @@ public interface MetricsCollector {
 	 * @param broker
 	 * @return
 	 */
-	List<String> consumerGroups(String broker);
+	List<String> groups(String broker);
 	
 	
 	/**
@@ -46,7 +46,7 @@ public interface MetricsCollector {
 	 * @param consumerGroup
 	 * @return
 	 */
-	List<TopicPartition> topicPartition(String broker, String consumerGroup);
+	List<TopicPartition> topicPartition(String broker, String group);
 	
 	
 	/**
@@ -56,17 +56,19 @@ public interface MetricsCollector {
 	 * @param consumerGroup
 	 * @return
 	 */
-	List<String> topics(String broker, String consumerGroup);
+	List<String> topics(String broker, String group);
 	
 	
 	/**
 	 * Collect the current offset of the given topic from the broker.
 	 * 
 	 * @param broker
+	 * @param group
 	 * @param topic
+	 * @param offset
 	 * @return
 	 */
-	long currentOffset(String broker, String topic);
+	long offset(String broker, String group, String topic, int offset);
 	
 	
 	/**
@@ -76,7 +78,7 @@ public interface MetricsCollector {
 	 * @param topic
 	 * @return
 	 */
-	long endOffset(String broker, String topic);
+	long logSize(String broker, String topic);
 	
 	
 	/**
@@ -87,7 +89,7 @@ public interface MetricsCollector {
 	 * @param partition
 	 * @return
 	 */
-	String owner(String broker, String topic, int partition);
+	String owner(String broker, final String group, String topic, int partition);
 	
 	
 	/**
@@ -99,7 +101,7 @@ public interface MetricsCollector {
 	 */
 	long lag(String broker, String topic);
 	
-	
+
 	/**
 	 * 
 	 * Collect the lag for the given topic and partition from the broker.
@@ -110,5 +112,38 @@ public interface MetricsCollector {
 	 * @return
 	 */
 	long lag(String broker, String topic, int partition);
+	
+	
+	/**
+	 * Collect the lag for the given group, topic, and partition from the broker.
+	 * 
+	 * @param broker
+	 * @param group
+	 * @param topic
+	 * @param partition
+	 * @return
+	 */
+	long lag(String broker, String group, String topic, int partition);
+	
+	
+	/**
+	 * Collect the lag for the given group, and topic from the broker.
+	 * 
+	 * @param broker
+	 * @param group
+	 * @param topic
+	 * @return
+	 */
+	long lag(String broker, String group, String topic);
+	
+	/**
+	 * Find the leader for the given topic and partition from the broker.
+	 * 
+	 * @param broker
+	 * @param topic
+	 * @param partition
+	 * @return
+	 */
+	String leader(String broker, String topic, String partition);
 	
 }
