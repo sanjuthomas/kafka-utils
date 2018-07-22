@@ -1,4 +1,4 @@
-package org.sanju.kafka.utils;
+package org.sanju.kafka.admin;
 /**
  * 
  * @author Sanju Thomas

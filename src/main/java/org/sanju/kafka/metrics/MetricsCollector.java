@@ -1,4 +1,4 @@
-package org.sanju.kafka.utils;
+package org.sanju.kafka.metrics;
 
 import java.util.List;
 

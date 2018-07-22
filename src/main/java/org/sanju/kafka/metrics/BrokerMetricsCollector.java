@@ -1,4 +1,4 @@
-package org.sanju.kafka.utils.broker;
+package org.sanju.kafka.metrics;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import org.apache.kafka.common.TopicPartition;
-import org.sanju.kafka.utils.MetricsCollector;
 import kafka.admin.AdminClient;
 import kafka.admin.AdminClient.ConsumerSummary;
 import scala.collection.JavaConversions;

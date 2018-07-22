@@ -1,8 +1,9 @@
-package org.sanju.kafka.utils;
+package org.sanju.kafka;
 
 import java.util.Set;
 import org.junit.After;
 import org.junit.Before;
+import org.sanju.kafka.admin.TopicUtils;
 import com.google.common.collect.ImmutableSet;
 
 /**
@@ -27,7 +28,7 @@ public class AbstractTest {
 
   @After
   public void tearDown() {
-
+    this.util.deleteTopcis(this.topics);
   }
 
 }

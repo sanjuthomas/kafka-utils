@@ -1,11 +1,11 @@
-package org.sanju.kafka.utils.broker;
+package org.sanju.kafka.metrics;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.sanju.kafka.utils.AbstractTest;
-import org.sanju.kafka.utils.IntegrationTest;
-import org.sanju.kafka.utils.MetricsCollector;
+import org.sanju.kafka.AbstractTest;
+import org.sanju.kafka.admin.IntegrationTest;
 
 /**
  *
@@ -27,7 +27,13 @@ public class TestKafkaMetricsCollector extends AbstractTest {
 
   @Test
   public void shouldFindAllTopics() {
-    this.collector.topics(this.util.kafkaHost());
+    System.out.println(this.collector.topics(super.util.kafkaHost()));
+  }
+
+  @Override
+  @After
+  public void tearDown() {
+    super.tearDown();
   }
 
 }
