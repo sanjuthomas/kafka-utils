@@ -7,19 +7,19 @@ import kafka.utils.ZkUtils;
 
 public class AdminUtils {
 
-	private static final String KAFKA_HOST = "localhost";
-	private static final int KAFKA_PORT = 9092;
-	private static final String ZOOKEEPER_HOST = "localhost:2181";
+	private static String KAFKA_HOST = "localhost:9092";
+	private static String ZOOKEEPER_HOST = "localhost:2181";
 
 	private ZkClient zkClient;
 	private ZkConnection zkConnection;
 
-	public String kafkaHost() {
-		return KAFKA_HOST;
+	public AdminUtils(final String kafkaHost, final String zooKeeperHost) {
+		AdminUtils.KAFKA_HOST = kafkaHost;
+		AdminUtils.ZOOKEEPER_HOST = zooKeeperHost;
 	}
 
-	public int kafkaPort() {
-		return KAFKA_PORT;
+	public String kafkaHost() {
+		return KAFKA_HOST;
 	}
 
 	public ZkClient zkClient() {
@@ -30,7 +30,10 @@ public class AdminUtils {
 	}
 
 	public ZkUtils zkUtils() {
-		return null;
+		if (null == this.zkConnection) {
+			this.zkConnection = new ZkConnection(this.zookeeperHost());
+		}
+		return new ZkUtils(this.zkClient, this.zkConnection, false);
 	}
 
 	public String zookeeperHost() {
