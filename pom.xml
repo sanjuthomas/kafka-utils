@@ -4,8 +4,8 @@
 
 	<groupId>org.sanju</groupId>
 	<artifactId>kafka-broker-utils</artifactId>
-	<description>Code to collect Kafka Broker Metrics</description>
-	<version>0.0.1-SNAPSHOT</version>
+	<description>Kafka Utilities</description>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
 	<name>kafka-broker-utils</name>
@@ -16,32 +16,27 @@
 	</properties>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka_2.10</artifactId>
-			<version>0.10.2.1</version>
+			<artifactId>kafka_2.12</artifactId>
+			<version>1.1.1</version>
 		</dependency>
-
-		<dependency>
-			<groupId>org.scalaj</groupId>
-			<artifactId>scalaj-collection_2.10</artifactId>
-			<version>1.6</version>
-		</dependency>
-
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>24.1-jre</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.scalaj</groupId>
+			<artifactId>scalaj-collection_2.10</artifactId>
+			<version>1.6</version>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
 
 	<build>

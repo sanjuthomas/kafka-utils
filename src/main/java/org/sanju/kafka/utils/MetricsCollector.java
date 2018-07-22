@@ -36,7 +36,7 @@ public interface MetricsCollector {
 	 * @param broker
 	 * @return
 	 */
-	List<TopicPartition> topicPartition(String broker);
+	List<TopicPartition> topicsPartitions(String broker);
 	
 	
 	/**
@@ -46,7 +46,7 @@ public interface MetricsCollector {
 	 * @param consumerGroup
 	 * @return
 	 */
-	List<TopicPartition> topicPartition(String broker, String group);
+	List<TopicPartition> topicsPartitions(String broker, String group);
 	
 	
 	/**

@@ -1,4 +1,4 @@
-package org.sanju.kafka.utils.broker;
+package org.sanju.kafka.utils;
 
 import org.junit.After;
 import org.junit.Before;
@@ -9,16 +9,21 @@ import org.junit.Before;
  *
  */
 public class AbstractTest {
+	
+	
 
 	@Before
 	public void setup() {
-		
 		
 	}
 	
 	@After
 	public void tearDown() {
 		
+	}
+	
+	private void setupTopics() {
 		
 	}
+	
 }
