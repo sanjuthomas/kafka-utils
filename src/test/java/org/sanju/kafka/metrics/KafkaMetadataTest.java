@@ -15,7 +15,7 @@ import org.sanju.kafka.admin.IntegrationTest;
  */
 
 @Category(IntegrationTest.class)
-public class KafkaMetricsCollectorTest extends AbstractTest {
+public class KafkaMetadataTest extends AbstractTest {
 
   private KafkaMetadata collector;
 
