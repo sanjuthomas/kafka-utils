@@ -1,6 +1,9 @@
 package org.sanju.kafka.metrics;
 
+import static org.junit.Assert.assertEquals;
+import java.util.Iterator;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.sanju.kafka.AbstractTest;
 import org.sanju.kafka.admin.IntegrationTest;
@@ -21,6 +24,14 @@ public class KafkaMetricsCollectorTest extends AbstractTest {
   public void setup() {
     super.setup();
     this.collector = new KafkaMetadataImpl(super.util, super.util.adminClient());
+  }
+
+  @Test
+  public void shouldGetAllTopics() {
+    final Iterator<String> topics = this.collector.topics().iterator();
+    assertEquals("PABN", topics.next());
+    assertEquals("PANA", topics.next());
+    assertEquals("PAOU", topics.next());
   }
 
 }

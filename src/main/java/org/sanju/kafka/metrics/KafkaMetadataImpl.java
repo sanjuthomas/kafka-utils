@@ -27,7 +27,8 @@ public class KafkaMetadataImpl implements KafkaMetadata {
   @Override
   public Set<String> groups() {
     final Set<String> consumerGroups = new LinkedHashSet<>();
-    JavaConversions.asJavaCollection(this.adminClient.listAllConsumerGroupsFlattened()).forEach(gv -> consumerGroups.add(gv.groupId()));
+    JavaConversions.asJavaCollection(this.adminClient.listAllConsumerGroupsFlattened())
+        .forEach(gv -> consumerGroups.add(gv.groupId()));
     return consumerGroups;
   }
 
@@ -76,11 +77,14 @@ public class KafkaMetadataImpl implements KafkaMetadata {
   @Override
   public String owner(final String group, final String topic, final int partition) {
     String owner = "Not Found!";
-    final Collection<ConsumerSummary> consumers =
-        JavaConversions.asJavaCollection(this.adminClient.describeConsumerGroup(group, 2000).consumers().get());
+    final Collection<ConsumerSummary> consumers = JavaConversions
+        .asJavaCollection(this.adminClient.describeConsumerGroup(group, 2000).consumers().get());
     for (final ConsumerSummary consumer : consumers) {
-      final Collection<TopicPartition> topicParitions = JavaConversions.asJavaCollection(consumer.assignment());
-      if (topicParitions.stream().filter(tp -> topic.equalsIgnoreCase(tp.topic()) && (partition == tp.partition())).findFirst().isPresent()) {
+      final Collection<TopicPartition> topicParitions =
+          JavaConversions.asJavaCollection(consumer.assignment());
+      if (topicParitions.stream()
+          .filter(tp -> topic.equalsIgnoreCase(tp.topic()) && (partition == tp.partition()))
+          .findFirst().isPresent()) {
         owner = String.format("%s-%s", consumer.clientId(), consumer.host().substring(1));
       }
     }
@@ -95,13 +99,16 @@ public class KafkaMetadataImpl implements KafkaMetadata {
   @Override
   public Set<String> topics(final String consumerGroup) {
     final Set<String> topics = new LinkedHashSet<>();
-    JavaConversions.asJavaCollection(this.adminClient.describeConsumerGroup(consumerGroup, 2000).consumers().get()).forEach(cs -> {
-      JavaConversions.asJavaCollection(cs.assignment()).forEach(a -> {
-        if (!topics.contains(a.topic())) {
-          topics.add(a.topic());
-        }
-      });
-    });
+    JavaConversions
+        .asJavaCollection(
+            this.adminClient.describeConsumerGroup(consumerGroup, 2000).consumers().get())
+        .forEach(cs -> {
+          JavaConversions.asJavaCollection(cs.assignment()).forEach(a -> {
+            if (!topics.contains(a.topic())) {
+              topics.add(a.topic());
+            }
+          });
+        });
     return topics;
   }
 
@@ -109,9 +116,11 @@ public class KafkaMetadataImpl implements KafkaMetadata {
   public Set<TopicPartition> topicsPartitions() {
     final Set<TopicPartition> topicPartitions = new LinkedHashSet<>();
     this.groups().forEach(cg -> {
-      JavaConversions.asJavaCollection(this.adminClient.describeConsumerGroup(cg, 2000).consumers().get()).forEach(dcg -> {
-        topicPartitions.addAll(JavaConversions.asJavaCollection(dcg.assignment()));
-      });
+      JavaConversions
+          .asJavaCollection(this.adminClient.describeConsumerGroup(cg, 2000).consumers().get())
+          .forEach(dcg -> {
+            topicPartitions.addAll(JavaConversions.asJavaCollection(dcg.assignment()));
+          });
     });
     return topicPartitions;
   }
@@ -119,9 +128,12 @@ public class KafkaMetadataImpl implements KafkaMetadata {
   @Override
   public Set<TopicPartition> topicsPartitions(final String consumerGroup) {
     final Set<TopicPartition> topicPartitions = new LinkedHashSet<>();
-    JavaConversions.asJavaCollection(this.adminClient.describeConsumerGroup(consumerGroup, 2000).consumers().get()).forEach(dcg -> {
-      topicPartitions.addAll(JavaConversions.asJavaCollection(dcg.assignment()));
-    });
+    JavaConversions
+        .asJavaCollection(
+            this.adminClient.describeConsumerGroup(consumerGroup, 2000).consumers().get())
+        .forEach(dcg -> {
+          topicPartitions.addAll(JavaConversions.asJavaCollection(dcg.assignment()));
+        });
     return topicPartitions;
   }
 }
