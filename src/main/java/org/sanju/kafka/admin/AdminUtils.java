@@ -1,8 +1,15 @@
 package org.sanju.kafka.admin;
 
+import java.util.Properties;
+import kafka.admin.AdminClient;
 import kafka.zk.AdminZkClient;
 import kafka.zk.KafkaZkClient;
 
+/**
+ *
+ * @author Sanju Thomas
+ *
+ */
 public class AdminUtils {
 
   private static String KAFKA_HOST = "localhost:9092";
@@ -11,6 +18,12 @@ public class AdminUtils {
   public AdminUtils(final String kafkaHost, final String zooKeeperHost) {
     AdminUtils.KAFKA_HOST = kafkaHost;
     AdminUtils.ZOOKEEPER_HOST = zooKeeperHost;
+  }
+
+  public AdminClient adminClient() {
+    final Properties config = new Properties();
+    config.put("bootstrap.servers", this.kafkaHost());
+    return AdminClient.create(config);
   }
 
   public AdminZkClient adminZkClient() {

@@ -1,8 +1,10 @@
 package org.sanju.kafka.admin;
 
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import kafka.admin.RackAwareMode;
+import scala.collection.JavaConversions;
 
 /**
  *
@@ -15,8 +17,8 @@ public class TopicUtils extends AdminUtils {
     super(kafkaHost, zooKeeperHost);
   }
 
-  public void allTopics() {
-    System.out.println(super.adminZkClient().getAllTopicConfigs());
+  public Map<String, Properties> allTopics() {
+    return JavaConversions.mapAsJavaMap(super.adminZkClient().getAllTopicConfigs());
   }
 
   public void createTopic(final String topic) {
