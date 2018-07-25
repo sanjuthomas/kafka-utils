@@ -34,4 +34,9 @@ public class KafkaMetadataTest extends AbstractTest {
     assertEquals("PAOU", topics.next());
   }
 
+  @Test
+  public void shouldGetAllGroups() {
+    System.out.println(this.collector.groups());
+  }
+
 }
